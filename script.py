@@ -58,4 +58,14 @@ def available_on_night(gamers_list, day):
 
 attending_game_night = available_on_night(gamers, game_night)
 print(attending_game_night)
-    
+
+def send_email(gamers_who_can_attend, day, game):
+    for name in gamers_who_can_attend:
+        form_email = f"""
+            Dear {name},
+            the {game} game night will be on {day} night.
+            See you then!
+        """
+        print(form_email)
+
+send_email(attending_game_night, game_night, "Abruptly Goblins!")
