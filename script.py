@@ -32,7 +32,7 @@ count_availability = build_daily_frequency_table()
 def calculate_availability(gamers_list, available_frequency):
     for gamer in gamers_list:
         for day in gamer['availability']:
-            count_availability[day] += 1
+            available_frequency[day] += 1
 
 calculate_availability(gamers, count_availability)
 print(count_availability)
@@ -69,3 +69,15 @@ def send_email(gamers_who_can_attend, day, game):
         print(form_email)
 
 send_email(attending_game_night, game_night, "Abruptly Goblins!")
+
+unable_to_attend_best_night = []
+for gamer in gamers:
+    if gamer['name'] not in attending_game_night:
+        unable_to_attend_best_night.append(gamer)
+
+second_night_availability = build_daily_frequency_table()
+calculate_availability(unable_to_attend_best_night, second_night_availability)
+second_night = find_best_night(second_night_availability)
+
+available_second_game_night = available_on_night(gamers, second_night)
+send_email(available_second_game_night, second_night, "Abruptly Goblins!")
